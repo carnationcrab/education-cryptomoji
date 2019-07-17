@@ -15,7 +15,7 @@ const { randomBytes, createHash } = require('crypto');
  */
 const createPrivateKey = () => {
   // Enter your solution here
-
+  return randomBytes(32).toString('hex');
 };
 
 /**
