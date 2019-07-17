@@ -75,6 +75,12 @@ const sign = (privateKey, message) => {
 const verify = (publicKey, message, signature) => {
   // Your code here
 
+  const messageHash = createHash('sha256').update(message).digest('hex');
+
+  return secp256k1.verify(
+    Buffer.from(messageHash, 'hex'),
+    Buffer.from(signature, 'hex'),
+    Buffer.from(publicKey, 'hex'))
 };
 
 module.exports = {
