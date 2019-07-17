@@ -87,7 +87,8 @@ class Blockchain {
    */
   constructor() {
     // Your code here
-
+    let transactionsArray = []
+    this.blocks = [new Block(transactionsArray, null)];
   }
 
   /**
@@ -95,7 +96,7 @@ class Blockchain {
    */
   getHeadBlock() {
     // Your code here
-
+    return this.blocks[this.blocks.length - 1];
   }
 
   /**
@@ -104,7 +105,8 @@ class Blockchain {
    */
   addBlock(transactions) {
     // Your code here
-
+    const previousHash = this.getHeadBlock().hash
+    this.blocks.push(new Block(transactions, previousHash));
   }
 
   /**
@@ -118,6 +120,24 @@ class Blockchain {
    */
   getBalance(publicKey) {
     // Your code here
+    let balance = 0;
+
+    this.blocks.forEach(
+      ({transactions}) => {
+        transactions.forEach(
+          transaction => {
+            // if recieving funds, add
+            if (transaction.recipient === publicKey) {
+              balance += transaction.amount
+            }
+            // if sending funds, subtract
+            if (transaction.source === publicKey) {
+              balance -= transaction.amount
+            }
+          })
+      })
+
+      return balance;
 
   }
 }
