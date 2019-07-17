@@ -33,7 +33,9 @@ const createPrivateKey = () => {
  */
 const getPublicKey = privateKey => {
   // Your code here
-
+  return secp256k1.publicKeyCreate(
+    Buffer.from(privateKey, 'hex')
+  ).toString('hex')
 };
 
 /**
