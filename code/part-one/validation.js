@@ -12,7 +12,12 @@ const signing = require('./signing');
  */
 const isValidTransaction = transaction => {
   // Enter your solution here
-
+  return transaction.amount >= 0 &&
+  signing.verify(
+    transaction.source,
+    transaction.source + transaction.recipient + transaction.amount,
+    transaction.signature
+    );
 };
 
 /**
